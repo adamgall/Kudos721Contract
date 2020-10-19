@@ -56,6 +56,13 @@ module.exports = {
       network_id: 4,
       from: '0x6239ff1040e412491557a7a02b2cbcc5ae85dc8f',
     },
+    xdai: {
+      provider: function() {
+        return new HDWalletProvider({ privateKeys, providerOrUrl: 'https://dai.poa.network' })
+      },
+      network_id: 100,
+      from: '0x6239ff1040e412491557a7a02b2cbcc5ae85dc8f',
+    },
     development: {
       host: "localhost",
       port: 8545,
