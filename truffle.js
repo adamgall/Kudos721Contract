@@ -1,30 +1,29 @@
-const HDWalletProvider = require('truffle-hdwallet-provider')
-const HDWalletProviderPriv = require('truffle-hdwallet-provider-privkey')
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const fs = require('fs')
 
 // First read in the secrets.json to get our mnemonic
 let secrets
 let mnemonic
-let privkeys
+let privateKeys
 
 if (fs.existsSync('secrets.json')) {
   secrets = JSON.parse(fs.readFileSync('secrets.json', 'utf8'))
   mnemonic = secrets.mnemonic
   token = secrets.token
-  privkeys = secrets.privKeys
+  privateKeys = secrets.privKeys
 } else {
   console.log('No secrets.json found. If you are trying to publish EPM ' +
               'this will fail. Otherwise, you can ignore this message!')
   mnemonic = ''
   token = ''
-  privkeys = []
+  privateKeys = []
 }
 
 module.exports = {
   networks: {
     live: {
       provider: function() {
-        return new HDWalletProviderPriv(privkeys, 'https://mainnet.infura.io/' + token)
+        return new HDWalletProviderPriv({ privateKeys, provider: 'https://mainnet.infura.io/' + token })
       },
       network_id: 1, // Ethereum public network
       from: '0x6239ff1040e412491557a7a02b2cbcc5ae85dc8f',
@@ -43,7 +42,7 @@ module.exports = {
     },
     ropsten: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/' + token)
+        return new HDWalletProvider({ mnemonic: { phrase: mnemonic }, providerOrUrl: 'https://ropsten.infura.io/' + token })
       },
       network_id: 3,
       from: '0xd386793f1db5f21609571c0164841e5ea2d33ad8',
@@ -52,7 +51,7 @@ module.exports = {
     },
     rinkeby: {
       provider: function() {
-        return new HDWalletProviderPriv(privkeys, 'https://rinkeby.infura.io/' + token)
+        return new HDWalletProvider({ privateKeys, providerOrUrl: 'https://rinkeby.infura.io/' + token })
       },
       network_id: 4,
       from: '0x6239ff1040e412491557a7a02b2cbcc5ae85dc8f',
