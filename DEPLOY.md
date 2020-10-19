@@ -22,9 +22,8 @@ First the contract needs to be deployed to the blockchain.  These steps apply to
 - `git pull` to get the latest code.
 - `git checkout [tag]` to checkout the version you want.  For example, `git checkout v1.1.2`
 - Open the *truffle.js* and make sure the information is correct for your deploy.  Most importantly, check the `from` field to make sure it is the account you want to "own" the contract.  The owner of this account will basically have "admin" access to the contract.
-- `npm install -g truffle` if truffle is not already installed.
 - `npm install` to make sure you have all the dependencies.
-- `truffe migrate --reset --compile-all --network rinkeby` to compile the contract code and deploy it to rinkeby.
+- `npx truffle migrate --reset --compile-all --network rinkeby` to compile the contract code and deploy it to rinkeby.
 - `grep network -A30 build/contracts/Kudos.json` and find the network address for the network you are deploying to.  For rinkeby, the network id is 4.  For mainnet, the network id is 1.
 - Go to https://rinkeby.opensea.io, and click Develop --> Submit Dapps.
 - Enter the contract address above.  It should find the contract on rinkeby.  Click through until the end and you will probably get a 404 error.  Don't worry about this, it's still working.  **It is important that you do this before minting any tokens**.
